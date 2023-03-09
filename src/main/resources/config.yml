@@ -1,0 +1,11 @@
+cps:
+  alert-in: 20
+
+delay: # Only works with left click
+  cps-activate: 7
+  maxDelay: 3 # If you have false positives reduce this to 2
+
+reports:
+  reset-seconds: 5 # Every X seconds the reports of players are deleted
+  max: 2 # Max value = 127
+  command-on-max: "kick %player% AutoClick Detected"

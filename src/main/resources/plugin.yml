@@ -1,0 +1,5 @@
+name: AntiAutoClick
+description: A basic anti autoclick plugin
+author: iChocoMC
+main: com.github.ichocomc.antiautoclick.AntiAutoClick
+version: 1.0
