@@ -6,12 +6,11 @@
 
     <!-- Project information -->
     <groupId>com.github.ichocomc</groupId>
-    <artifactId>AntiAutoClick</artifactId>
+    <artifactId>antiautoclick</artifactId>
     <packaging>jar</packaging>
 
-    <!-- Plugin Information -->
-    <name>AntiAutoClick</name>
-    <description>A basic antiautoclick plugin</description>
+    <name>antiautoclick</name>
+    <description>A basic anti auto click plugin</description>
     <version>1.0</version>
 
     <properties>
@@ -20,14 +19,21 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+    <repositories>
+        <!-- This adds the Spigot Maven repository to the build -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+
     <!-- Dependencies imports -->
     <dependencies>
         <dependency>
             <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
+            <artifactId>spigot-api</artifactId>
             <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>/home/ichoco/Escritorio/nms/craftbukkit-1.8.8-R0.1-SNAPSHOT-latest.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -37,8 +43,7 @@
         <finalName>${project.name}-${project.version}</finalName>
         <!-- Directory of .java files -->
         <sourceDirectory>src/main/java</sourceDirectory>
-        <!-- Clean old builds and install dependencies before compile -->
+        <!-- Default goal on compile -->
         <defaultGoal>clean install</defaultGoal>
-        <!-- Package files inside resource directory in to the jar -->
     </build>
 </project>

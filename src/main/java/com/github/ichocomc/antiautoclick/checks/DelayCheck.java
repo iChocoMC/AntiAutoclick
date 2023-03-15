@@ -19,29 +19,28 @@ public class DelayCheck implements AutoClickCheck {
     }
 
     /*
-     * Primero revisa si el click es izquierdo y si los cps son mayores o iguales a minCPS
-     * Segundo resta el primer y segundo tiempo de click times[1 y 2] = delay en milisegundos
+     * 1) Si los cps son mayores o iguales a minCPS sigue con el check
+     * 2) Resta el primer y segundo tiempo de click times[1 y 2] = delay en milisegundos
      *      Ejemplo: Tardaste 500ms en hacer el primer click y luego 400ms en otro
      *      Entonces 500ms - 400ms = tardaste 100ms
      *
-     * Tercero revisa si el tiempo es menor a 5 | Esto para evitar falsos positivos debido al lag
+     * 3) Revisa si el tiempo es menor a 5 | Esto para evitar falsos positivos debido al lag
      *      Si esto es verdad, el tiempo time[1] pasa a obtener el valor de time[2]
      *      y time[2] toma el valor del nuevo tiempo (System.currentTimeMillis() - time)
      *      Esto se hace porque el primer click no tiene registrado ningun tiempo
      *
-     * Cuarto resta el delay con el antiguo delay, ejemplo:
+     * 4) Resta el delay con el antiguo delay, ejemplo:
      *      El delay entre este click y el anterior es de 100ms
      *      Pero el delay entre el click anterior y uno antes de este puede ser por ej: 80ms
      *      Entonces restamos 100 - 80 = 20
-     *      Luego revisamos si 20 es menor a maxDelay, si es cierto es detectado como autoclick
-     * 
-     * Quinto se añade a times[2] el nuevo tiempo y el anterior a times[1]
-     * Finalmente se añade el delay actual a times[0]
+     * 5) Revisamos si 20 es menor a maxDelay, si es cierto es detectado como autoclick
+     * 6) Se añade a times[2] el nuevo tiempo y el anterior a times[1]
+     * 7) Finalmente se añade el delay actual a times[0]
      */
     @Override
-    public void check(PlayerInteractEvent event, PlayerInfo info, int clickType) {
+    public void check(PlayerInteractEvent event, PlayerInfo info) {
 
-        if (clickType != 0 || info.getByte(clickType) <= minCPS) {
+        if (info.getByte(0) <= minCPS) {
             return;
         }
 
@@ -52,7 +51,9 @@ public class DelayCheck implements AutoClickCheck {
             return;
         }
 
-        if (info.getResult(delay) < maxDelay) {
+        int result = info.getResult(delay);
+
+        if (result > 0 && result < maxDelay) {
             info.addByte(2); // Add new report
         }
         info.addTime(System.currentTimeMillis() - time);

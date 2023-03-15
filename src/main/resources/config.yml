@@ -1,7 +1,7 @@
 cps:
   alert-in: 20
 
-delay: # Only works with left click
+delay:
   cps-activate: 7
   maxDelay: 3 # If you have false positives reduce this to 2
 
